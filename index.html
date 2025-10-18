@@ -1,933 +1,335 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>游戏探索枢纽 - Game Explore Hub</title>
-  <!-- 引入Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 引入Font Awesome -->
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <!-- 引入Chart.js用于数据可视化 -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-  
-  <!-- 配置Tailwind自定义颜色和字体 -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#165DFF',
-            secondary: '#FF7D00',
-            dark: '#333333',
-            light: '#F5F5F5',
-          },
-          fontFamily: {
-            game: ['"Press Start 2P"', 'cursive', 'sans-serif'],
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
-      }
-    }
-  </script>
-  
-  <!-- 自定义工具类 -->
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-      .text-shadow {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      }
-      .card-hover {
-        @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
-      }
-      .btn-primary {
-        @apply bg-secondary text-white px-4 py-2 rounded-lg font-bold transition-all duration-300 hover:bg-secondary/90 hover:scale-105 active:scale-95 shadow-md;
-      }
-      .section-fade {
-        @apply opacity-0 translate-y-8 transition-all duration-700;
-      }
-      .section-visible {
-        @apply opacity-100 translate-y-0;
-      }
-    }
-  </style>
-  
-  <!-- 引入Google字体 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-</head>
-
-<body class="bg-light text-dark font-sans">
-  <!-- 导航栏 -->
-  <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-primary/95 shadow-md">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="#" class="flex items-center space-x-2">
-        <i class="fa fa-gamepad text-2xl text-secondary"></i>
-        <span class="text-white font-bold text-xl">游戏探索枢纽</span>
-      </a>
-      
-      <!-- 桌面导航 -->
-      <nav class="hidden md:flex space-x-8">
-        <a href="#games" class="text-white hover:text-secondary transition-colors">游戏博览</a>
-        <a href="#gameplay" class="text-white hover:text-secondary transition-colors">玩法实验室</a>
-        <a href="#community" class="text-white hover:text-secondary transition-colors">玩家互动</a>
-      </nav>
-      
-      <!-- 移动端菜单按钮 -->
-      <button id="menuBtn" class="md:hidden text-white text-2xl">
-        <i class="fa fa-bars"></i>
-      </button>
-    </div>
-    
-    <!-- 移动端导航菜单 -->
-    <div id="mobileMenu" class="hidden md:hidden bg-primary/98 shadow-lg">
-      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-        <a href="#games" class="text-white hover:text-secondary transition-colors py-2">游戏博览</a>
-        <a href="#gameplay" class="text-white hover:text-secondary transition-colors py-2">玩法实验室</a>
-        <a href="#community" class="text-white hover:text-secondary transition-colors py-2">玩家互动</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- 英雄区域 -->
-  <section class="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-primary to-primary/80 text-white overflow-hidden">
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0 bg-[url('https://picsum.photos/id/237/1920/1080')] bg-cover bg-center"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="max-w-3xl mx-auto text-center">
-        <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-6 text-shadow leading-tight">
-          探索游戏世界的<br class="md:hidden">无限可能
-        </h1>
-        <p class="text-[clamp(1rem,2vw,1.25rem)] mb-8 opacity-90">
-          发现热门游戏、解析核心玩法、参与玩家互动，这里是游戏爱好者的乐园
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="#games" class="btn-primary">
-            浏览游戏 <i class="fa fa-arrow-right ml-2"></i>
-          </a>
-          <a href="#community" class="bg-white text-primary px-4 py-2 rounded-lg font-bold transition-all duration-300 hover:bg-light hover:scale-105 active:scale-95 shadow-md">
-            加入互动 <i class="fa fa-users ml-2"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 装饰元素 -->
-    <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-light to-transparent"></div>
-  </section>
-
-  <!-- 游戏分类标签 -->
-  <section class="py-6 bg-light">
-    <div class="container mx-auto px-4">
-      <div class="flex overflow-x-auto pb-2 gap-2 md:justify-center">
-        <button class="category-btn bg-primary text-white px-4 py-2 rounded-full whitespace-nowrap shadow-md">
-          全部游戏
-        </button>
-        <button class="category-btn bg-white text-dark px-4 py-2 rounded-full whitespace-nowrap shadow-md hover:bg-primary/10 transition-colors">
-          动作冒险
-        </button>
-        <button class="category-btn bg-white text-dark px-4 py-2 rounded-full whitespace-nowrap shadow-md hover:bg-primary/10 transition-colors">
-          角色扮演
-        </button>
-        <button class="category-btn bg-white text-dark px-4 py-2 rounded-full whitespace-nowrap shadow-md hover:bg-primary/10 transition-colors">
-          策略模拟
-        </button>
-        <button class="category-btn bg-white text-dark px-4 py-2 rounded-full whitespace-nowrap shadow-md hover:bg-primary/10 transition-colors">
-          竞技对战
-        </button>
-        <button class="category-btn bg-white text-dark px-4 py-2 rounded-full whitespace-nowrap shadow-md hover:bg-primary/10 transition-colors">
-          休闲益智
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 游戏博览区 -->
-  <section id="games" class="py-16 section-fade">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">游戏博览</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">发现最新最热门的游戏，从独立佳作到3A大作，总有一款适合你</p>
-      </div>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <!-- 游戏卡片1 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/237/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-            <span class="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-2 py-1 rounded">热门</span>
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">幻境冒险</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.8</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">动作冒险</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">开放世界</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">一款充满神秘色彩的开放世界冒险游戏，玩家将探索一个被遗忘的古老文明。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-        
-        <!-- 游戏卡片2 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/110/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">新发布</span>
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">星际指挥官</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.5</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">策略</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">科幻</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">指挥你的星际舰队，在浩瀚宇宙中展开征服与探索，建立属于你的星际帝国。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-        
-        <!-- 游戏卡片3 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/160/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">魔法学院</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.7</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">角色扮演</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">奇幻</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">成为一名年轻的巫师，在魔法学院学习各种咒语，揭开学院背后的秘密。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-        
-        <!-- 游戏卡片4 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/180/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-            <span class="absolute top-3 left-3 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded">多人</span>
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">战场英雄</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.3</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">竞技</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">射击</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">团队合作至关重要的射击游戏，选择你的英雄角色，与队友一起赢得胜利。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-        
-        <!-- 游戏卡片5 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/200/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">农场物语</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.6</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">模拟</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">休闲</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">打造属于自己的农场，种植作物、饲养动物，体验宁静的乡村生活。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-        
-        <!-- 游戏卡片6 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/235/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">谜题王国</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.9</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">解谜</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">益智</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">探索充满谜题的古老王国，解开一个个精心设计的机关，揭示王国的历史。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-        
-        <!-- 游戏卡片7 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/240/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-            <span class="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-2 py-1 rounded">热门</span>
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">赛车传奇</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.4</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">竞速</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">体育</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">驾驶世界上最顶级的跑车，在全球各地的赛道上挑战极限，成为赛车传奇。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-        
-        <!-- 游戏卡片8 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-          <div class="relative">
-            <img src="https://picsum.photos/id/245/600/400" alt="游戏封面" class="w-full h-48 object-cover">
-            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">新发布</span>
-          </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="font-bold text-lg">僵尸生存</h3>
-              <div class="flex items-center">
-                <i class="fa fa-star text-yellow-400"></i>
-                <span class="ml-1 text-sm font-medium">4.2</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">生存</span>
-              <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">恐怖</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-4 line-clamp-2">在僵尸横行的世界中生存下去，寻找资源、建立基地，对抗各种可怕的僵尸。</p>
-            <button class="w-full bg-primary/10 text-primary font-medium py-2 rounded-lg hover:bg-primary/20 transition-colors">
-              查看详情
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="text-center mt-10">
-        <button class="btn-primary">
-          加载更多游戏 <i class="fa fa-refresh ml-2"></i>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 玩法实验室 -->
-  <section id="gameplay" class="py-16 bg-gradient-to-b from-light to-white section-fade">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">玩法实验室</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">深入解析游戏核心机制，掌握进阶技巧，成为真正的游戏高手</p>
-      </div>
-      
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- 玩法解析1 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row card-hover">
-          <div class="md:w-2/5">
-            <img src="https://picsum.photos/id/239/600/800" alt="游戏玩法" class="w-full h-full object-cover">
-          </div>
-          <div class="md:w-3/5 p-6">
-            <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">战斗系统</span>
-            <h3 class="font-bold text-xl mt-4 mb-3">《幻境冒险》连招系统全解析</h3>
-            <p class="text-gray-600 mb-4">掌握这些连招技巧，让你在战斗中所向披靡。从基础连击到终极奥义，一步步提升你的战斗水平。</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">基础连招</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">进阶技巧</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">角色专属</span>
-            </div>
-            <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-              查看完整攻略 <i class="fa fa-long-arrow-right ml-2"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 玩法解析2 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row card-hover">
-          <div class="md:w-2/5">
-            <div class="relative w-full h-full aspect-video md:aspect-auto">
-              <img src="https://picsum.photos/id/111/600/800" alt="游戏玩法" class="w-full h-full object-cover">
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-16 h-16 rounded-full bg-secondary/80 flex items-center justify-center cursor-pointer hover:bg-secondary transition-colors">
-                  <i class="fa fa-play text-white text-xl"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="md:w-3/5 p-6">
-            <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">策略指南</span>
-            <h3 class="font-bold text-xl mt-4 mb-3">《星际指挥官》最优资源管理策略</h3>
-            <p class="text-gray-600 mb-4">如何高效分配资源，快速扩张你的星际帝国？本指南将为你详细讲解经济系统和资源优化方案。</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">资源分配</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">科技树</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">扩张路线</span>
-            </div>
-            <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-              观看视频教程 <i class="fa fa-long-arrow-right ml-2"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 玩法解析3 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row card-hover">
-          <div class="md:w-2/5">
-            <img src="https://picsum.photos/id/169/600/800" alt="游戏玩法" class="w-full h-full object-cover">
-          </div>
-          <div class="md:w-3/5 p-6">
-            <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">谜题攻略</span>
-            <h3 class="font-bold text-xl mt-4 mb-3">《谜题王国》全关卡解谜思路</h3>
-            <p class="text-gray-600 mb-4">卡关了？别担心！这里提供所有谜题的解题思路（非直接答案），帮助你独立解开所有挑战。</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">逻辑推理</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">隐藏线索</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">机关原理</span>
-            </div>
-            <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-              查看解谜思路 <i class="fa fa-long-arrow-right ml-2"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 玩法解析4 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row card-hover">
-          <div class="md:w-2/5">
-            <div class="relative w-full h-full aspect-video md:aspect-auto">
-              <img src="https://picsum.photos/id/188/600/800" alt="游戏玩法" class="w-full h-full object-cover">
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-16 h-16 rounded-full bg-secondary/80 flex items-center justify-center cursor-pointer hover:bg-secondary transition-colors">
-                  <i class="fa fa-play text-white text-xl"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="md:w-3/5 p-6">
-            <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">竞技技巧</span>
-            <h3 class="font-bold text-xl mt-4 mb-3">《战场英雄》职业搭配与战术</h3>
-            <p class="text-gray-600 mb-4">职业搭配是胜利的关键！学习如何根据敌方阵容选择最佳组合，以及各地图的战术要点。</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">角色配合</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">地图战术</span>
-              <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">进阶操作</span>
-            </div>
-            <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-              观看职业选手演示 <i class="fa fa-long-arrow-right ml-2"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 玩家互动区 -->
-  <section id="community" class="py-16 bg-light section-fade">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">玩家互动</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">加入讨论，分享你的游戏心得，投票选出最受欢迎的游戏</p>
-      </div>
-      
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- 游戏投票 -->
-        <div class="bg-white rounded-xl shadow-md p-6">
-          <h3 class="font-bold text-xl mb-4 flex items-center">
-            <i class="fa fa-bar-chart text-secondary mr-2"></i> 本月最受欢迎游戏
-          </h3>
-          <p class="text-gray-600 text-sm mb-6">为你最喜欢的游戏投票，看看哪款游戏最受玩家欢迎</p>
-          
-          <div class="space-y-4 mb-6">
-            <!-- 投票选项1 -->
-            <div class="border border-gray-200 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-2">
-                <span class="font-medium">幻境冒险</span>
-                <span class="text-sm text-gray-500">68%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-                <div class="bg-secondary h-2.5 rounded-full" style="width: 68%"></div>
-              </div>
-              <button class="vote-btn text-sm bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors">
-                投票
-              </button>
-            </div>
-            
-            <!-- 投票选项2 -->
-            <div class="border border-gray-200 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-2">
-                <span class="font-medium">星际指挥官</span>
-                <span class="text-sm text-gray-500">52%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-                <div class="bg-secondary h-2.5 rounded-full" style="width: 52%"></div>
-              </div>
-              <button class="vote-btn text-sm bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors">
-                投票
-              </button>
-            </div>
-            
-            <!-- 投票选项3 -->
-            <div class="border border-gray-200 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-2">
-                <span class="font-medium">魔法学院</span>
-                <span class="text-sm text-gray-500">45%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-                <div class="bg-secondary h-2.5 rounded-full" style="width: 45%"></div>
-              </div>
-              <button class="vote-btn text-sm bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors">
-                投票
-              </button>
-            </div>
-          </div>
-          
-          <div class="mt-6">
-            <canvas id="votingChart" width="400" height="200"></canvas>
-          </div>
-        </div>
-        
-        <!-- 游戏问答 -->
-        <div class="bg-white rounded-xl shadow-md p-6">
-          <h3 class="font-bold text-xl mb-4 flex items-center">
-            <i class="fa fa-question-circle text-secondary mr-2"></i> 游戏知识问答
-          </h3>
-          <p class="text-gray-600 text-sm mb-6">测试你的游戏知识，看看你是不是真正的游戏达人</p>
-          
-          <div class="mb-6">
-            <h4 class="font-medium mb-3">《幻境冒险》中，主角的特殊能力是什么？</h4>
-            <div class="space-y-2">
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question1" class="mr-3"> 时间操控
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question1" class="mr-3"> 空间瞬移
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question1" class="mr-3"> 元素控制
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question1" class="mr-3"> 变身能力
-              </label>
-            </div>
-          </div>
-          
-          <div class="mb-6">
-            <h4 class="font-medium mb-3">《星际指挥官》中，最快的资源收集方式是？</h4>
-            <div class="space-y-2">
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question2" class="mr-3"> 建设更多收集站
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question2" class="mr-3"> 研究资源科技
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question2" class="mr-3"> 占领资源丰富的星球
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="radio" name="question2" class="mr-3"> 与其他文明贸易
-              </label>
-            </div>
-          </div>
-          
-          <button class="btn-primary w-full">
-            提交答案 <i class="fa fa-check ml-2"></i>
-          </button>
-        </div>
-        
-        <!-- 短评墙 -->
-        <div class="bg-white rounded-xl shadow-md p-6">
-          <h3 class="font-bold text-xl mb-4 flex items-center">
-            <i class="fa fa-comments text-secondary mr-2"></i> 玩家短评墙
-          </h3>
-          <p class="text-gray-600 text-sm mb-6">分享你的游戏体验，看看其他玩家的想法</p>
-          
-          <!-- 评论输入 -->
-          <div class="mb-6">
-            <textarea placeholder="分享你对某款游戏的看法..." class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" rows="3"></textarea>
-            <div class="flex justify-end mt-2">
-              <button class="btn-primary">
-                发布 <i class="fa fa-paper-plane ml-2"></i>
-              </button>
-            </div>
-          </div>
-          
-          <!-- 评论列表 -->
-          <div class="space-y-4 max-h-80 overflow-y-auto pr-2">
-            <!-- 评论1 -->
-            <div class="p-3 bg-gray-50 rounded-lg">
-              <div class="flex justify-between items-start mb-2">
-                <div class="flex items-center">
-                  <img src="https://picsum.photos/id/64/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                  <span class="font-medium text-sm">游戏迷小明</span>
-                </div>
-                <span class="text-xs text-gray-500">2小时前</span>
-              </div>
-              <p class="text-sm text-gray-600 mb-2">《幻境冒险》的画面简直太震撼了，尤其是森林区域的光影效果，每一帧都像壁纸！</p>
-              <div class="flex items-center text-xs text-gray-500">
-                <span class="flex items-center mr-4 cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-thumbs-up mr-1"></i> 24
-                </span>
-                <span class="flex items-center cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-reply mr-1"></i> 回复
-                </span>
-              </div>
-            </div>
-            
-            <!-- 评论2 -->
-            <div class="p-3 bg-gray-50 rounded-lg">
-              <div class="flex justify-between items-start mb-2">
-                <div class="flex items-center">
-                  <img src="https://picsum.photos/id/65/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                  <span class="font-medium text-sm">策略大师</span>
-                </div>
-                <span class="text-xs text-gray-500">5小时前</span>
-              </div>
-              <p class="text-sm text-gray-600 mb-2">《星际指挥官》的科技树设计很有深度，但新手引导不够友好，建议先看攻略再玩。</p>
-              <div class="flex items-center text-xs text-gray-500">
-                <span class="flex items-center mr-4 cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-thumbs-up mr-1"></i> 18
-                </span>
-                <span class="flex items-center cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-reply mr-1"></i> 回复
-                </span>
-              </div>
-            </div>
-            
-            <!-- 评论3 -->
-            <div class="p-3 bg-gray-50 rounded-lg">
-              <div class="flex justify-between items-start mb-2">
-                <div class="flex items-center">
-                  <img src="https://picsum.photos/id/91/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                  <span class="font-medium text-sm">解谜爱好者</span>
-                </div>
-                <span class="text-xs text-gray-500">昨天</span>
-              </div>
-              <p class="text-sm text-gray-600 mb-2">《谜题王国》的谜题设计太巧妙了，特别是第12关，我花了3天才解开，成就感爆棚！</p>
-              <div class="flex items-center text-xs text-gray-500">
-                <span class="flex items-center mr-4 cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-thumbs-up mr-1"></i> 32
-                </span>
-                <span class="flex items-center cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-reply mr-1"></i> 回复
-                </span>
-              </div>
-            </div>
-            
-            <!-- 评论4 -->
-            <div class="p-3 bg-gray-50 rounded-lg">
-              <div class="flex justify-between items-start mb-2">
-                <div class="flex items-center">
-                  <img src="https://picsum.photos/id/22/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                  <span class="font-medium text-sm">竞技达人</span>
-                </div>
-                <span class="text-xs text-gray-500">3天前</span>
-              </div>
-              <p class="text-sm text-gray-600 mb-2">《战场英雄》新出的英雄太强了，建议尽快削弱，不然游戏平衡都被打破了！</p>
-              <div class="flex items-center text-xs text-gray-500">
-                <span class="flex items-center mr-4 cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-thumbs-up mr-1"></i> 45
-                </span>
-                <span class="flex items-center cursor-pointer hover:text-primary transition-colors">
-                  <i class="fa fa-reply mr-1"></i> 回复
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 订阅区域 -->
-  <section class="py-16 bg-primary text-white section-fade">
-    <div class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold mb-4">获取最新游戏资讯</h2>
-        <p class="opacity-90 mb-8">订阅我们的通讯，第一时间获取游戏评测、攻略和独家优惠</p>
-        
-        <form class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-          <input type="email" placeholder="输入你的邮箱地址" class="flex-1 px-4 py-3 rounded-lg text-dark focus:outline-none focus:ring-2 focus:ring-secondary">
-          <button type="submit" class="btn-primary whitespace-nowrap">
-            立即订阅 <i class="fa fa-envelope ml-2"></i>
-          </button>
-        </form>
-        
-        <p class="text-sm opacity-80 mt-4">我们尊重你的隐私，绝不会向第三方分享你的信息</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 页脚 -->
-  <footer class="bg-dark text-white py-12">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-        <div>
-          <div class="flex items-center space-x-2 mb-4">
-            <i class="fa fa-gamepad text-2xl text-secondary"></i>
-            <span class="font-bold text-xl">游戏探索枢纽</span>
-          </div>
-          <p class="text-gray-400 text-sm">为游戏爱好者打造的一站式游戏资讯与互动平台</p>
-        </div>
-        
-        <div>
-          <h4 class="font-bold mb-4">快速链接</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="#games" class="hover:text-secondary transition-colors">游戏博览</a></li>
-            <li><a href="#gameplay" class="hover:text-secondary transition-colors">玩法实验室</a></li>
-            <li><a href="#community" class="hover:text-secondary transition-colors">玩家互动</a></li>
-            <li><a href="#" class="hover:text-secondary transition-colors">关于我们</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4 class="font-bold mb-4">游戏分类</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="#" class="hover:text-secondary transition-colors">动作冒险</a></li>
-            <li><a href="#" class="hover:text-secondary transition-colors">角色扮演</a></li>
-            <li><a href="#" class="hover:text-secondary transition-colors">策略模拟</a></li>
-            <li><a href="#" class="hover:text-secondary transition-colors">竞技对战</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4 class="font-bold mb-4">联系我们</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li class="flex items-center"><i class="fa fa-envelope mr-2 text-secondary"></i> contact@gamehub.com</li>
-            <li class="flex items-center"><i class="fa fa-twitter mr-2 text-secondary"></i> @gamehub</li>
-            <li class="flex items-center"><i class="fa fa-discord mr-2 text-secondary"></i> GameHub#1234</li>
-          </ul>
-          
-          <div class="mt-4 flex space-x-4">
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-secondary transition-colors">
-              <i class="fa fa-facebook"></i>
-            </a>
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-secondary transition-colors">
-              <i class="fa fa-twitter"></i>
-            </a>
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-secondary transition-colors">
-              <i class="fa fa-instagram"></i>
-            </a>
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-secondary transition-colors">
-              <i class="fa fa-youtube-play"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-        <p>&copy; 2023 游戏探索枢纽 | 宗介的游戏网站 | 保留所有权利</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- 返回顶部按钮 -->
-  <button id="backToTop" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-secondary/90">
-    <i class="fa fa-arrow-up"></i>
-  </button>
-
-  <!-- JavaScript -->
-  <script>
-    // 移动端菜单切换
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      // 切换图标
-      const icon = menuBtn.querySelector('i');
-      if (icon.classList.contains('fa-bars')) {
-        icon.classList.replace('fa-bars', 'fa-times');
-      } else {
-        icon.classList.replace('fa-times', 'fa-bars');
-      }
-    });
-    
-    // 导航栏滚动效果
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('py-2', 'bg-primary');
-        navbar.classList.remove('py-3', 'bg-primary/95');
-      } else {
-        navbar.classList.add('py-3', 'bg-primary/95');
-        navbar.classList.remove('py-2', 'bg-primary');
-      }
-    });
-    
-    // 滚动显示元素动画
-    const sections = document.querySelectorAll('.section-fade');
-    
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('section-visible');
-          observer.unobserve(entry.target);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宗介的个人主页</title>
+    <!-- 引入外部样式库（简化设计） -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* 基础样式设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-      });
-    }, observerOptions);
-    
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-    
-    // 返回顶部按钮
-    const backToTopBtn = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.remove('opacity-0', 'invisible');
-        backToTopBtn.classList.add('opacity-100', 'visible');
-      } else {
-        backToTopBtn.classList.add('opacity-0', 'invisible');
-        backToTopBtn.classList.remove('opacity-100', 'visible');
-      }
-    });
-    
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-    
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        // 关闭移动端菜单
-        if (!mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          const icon = menuBtn.querySelector('i');
-          icon.classList.replace('fa-times', 'fa-bars');
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
         }
-        
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-    
-    // 投票图表
-    const ctx = document.getElementById('votingChart').getContext('2d');
-    const votingChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ['幻境冒险', '星际指挥官', '魔法学院', '其他'],
-        datasets: [{
-          data: [34, 26, 22, 18],
-          backgroundColor: [
-            '#FF7D00',
-            '#165DFF',
-            '#36B37E',
-            '#999999'
-          ],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              boxWidth: 12,
-              padding: 15,
-              font: {
-                size: 11
-              }
+
+        /* 导航栏样式 */
+        nav {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* 头部区域 */
+        header {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* 主内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .section-card h2 {
+            color: #2980b9;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-card h2 i {
+            font-size: 1.5rem;
+        }
+
+        .hobby-list, .food-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .hobby-item, .food-item {
+            background: #f1f5f9;
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .hobby-item:hover, .food-item:hover {
+            background: #e1eaf5;
+        }
+
+        .info-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 联系区域 */
+        .contact {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-links a {
+            color: #3498db;
+            font-size: 1.8rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .contact-links a:hover {
+            color: #2980b9;
+            transform: scale(1.1);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: #7f8c8d;
+            background: #ecf0f1;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
             }
-          }
-        },
-        cutout: '70%'
-      }
-    });
-    
-    // 投票按钮交互
-    const voteBtns = document.querySelectorAll('.vote-btn');
-    voteBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        // 切换按钮状态
-        if (this.classList.contains('bg-primary/10') && this.classList.contains('text-primary')) {
-          this.classList.remove('bg-primary/10', 'text-primary');
-          this.classList.add('bg-secondary', 'text-white');
-          this.innerHTML = '已投票 <i class="fa fa-check ml-1"></i>';
-        } else {
-          this.classList.add('bg-primary/10', 'text-primary');
-          this.classList.remove('bg-secondary', 'text-white');
-          this.innerHTML = '投票';
+
+            header {
+                padding: 3rem 1rem;
+            }
+
+            .sections {
+                grid-template-columns: 1fr;
+            }
         }
-      });
-    });
-    
-    // 分类按钮交互
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    categoryBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        // 移除所有按钮的活跃状态
-        categoryBtns.forEach(b => {
-          b.classList.remove('bg-primary', 'text-white');
-          b.classList.add('bg-white', 'text-dark');
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">宗介的主页</div>
+            <div class="nav-links">
+                <a href="#intro">个人介绍</a>
+                <a href="#hobbies">兴趣爱好</a>
+                <a href="#food">饮食习惯</a>
+                <a href="#contact">联系我</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部区域 -->
+    <header>
+        <!-- 这里可以替换成你的照片（建议尺寸180x180） -->
+        <img src="https://via.placeholder.com/180" alt="宗介的头像" class="avatar">
+        <h1>你好，我是宗介</h1>
+        <p>花椒大学在读 · 热爱生活的普通人</p>
+    </header>
+
+    <!-- 主内容区域 -->
+    <div class="container">
+        <div class="sections">
+            <!-- 个人介绍板块 -->
+            <section id="intro" class="section-card">
+                <h2><i class="fa fa-user"></i> 个人介绍</h2>
+                <ul class="info-list">
+                    <li><strong>姓名：</strong>宗介</li>
+                    <li><strong>学校：</strong>花椒大学</li>
+                    <li><strong>年级：</strong>大二（可根据实际修改）</li>
+                    <li><strong>专业：</strong>软件工程（可根据实际修改）</li>
+                    <li><strong>性格：</strong>开朗随和，喜欢尝试新鲜事物</li>
+                    <li><strong>座右铭：</strong>慢慢来，比较快</li>
+                </ul>
+            </section>
+
+            <!-- 兴趣爱好板块 -->
+            <section id="hobbies" class="section-card">
+                <h2><i class="fa fa-heart"></i> 兴趣爱好</h2>
+                <p>平时喜欢做这些事来丰富生活：</p>
+                <div class="hobby-list">
+                    <div class="hobby-item">
+                        <i class="fa fa-running"></i>
+                        <p>跑步</p>
+                    </div>
+                    <div class="hobby-item">
+                        <i class="fa fa-gamepad"></i>
+                        <p>游戏</p>
+                    </div>
+                    <div class="hobby-item">
+                        <i class="fa fa-book"></i>
+                        <p>阅读</p>
+                    </div>
+                    <div class="hobby-item">
+                        <i class="fa fa-film"></i>
+                        <p>看电影</p>
+                    </div>
+                    <div class="hobby-item">
+                        <i class="fa fa-music"></i>
+                        <p>听歌</p>
+                    </div>
+                    <div class="hobby-item">
+                        <i class="fa fa-code"></i>
+                        <p>编程</p>
+                    </div>
+                </div>
+                <p style="margin-top: 1rem;"><strong>跑步小记：</strong>每周会跑3-4次，最喜欢校园的夜跑，听着歌慢慢跑很解压~</p>
+                <p><strong>游戏偏好：</strong>喜欢策略类和合作类游戏，比如《星露谷物语》《英雄联盟》</p>
+            </section>
+
+            <!-- 饮食习惯板块 -->
+            <section id="food" class="section-card">
+                <h2><i class="fa fa-utensils"></i> 饮食习惯</h2>
+                <ul class="info-list">
+                    <li><strong>口味：</strong>偏爱微辣，不喜欢太咸的食物</li>
+                    <li><strong>饮食规律：</strong>三餐按时吃，早餐必吃鸡蛋和牛奶</li>
+                    <li><strong>最爱吃的菜：</strong></li>
+                </ul>
+                <div class="food-list">
+                    <div class="food-item">番茄炒蛋</div>
+                    <div class="food-item">火锅</div>
+                    <div class="food-item">烧烤</div>
+                    <div class="food-item">寿司</div>
+                    <div class="food-item">麻辣烫</div>
+                    <div class="food-item">炸鸡</div>
+                </div>
+                <p style="margin-top: 1rem;"><strong>水果偏好：</strong>草莓、蓝莓、西瓜（夏天的最爱）</p>
+                <p><strong>饮品：</strong>平时多喝水，偶尔喝奶茶（三分糖少冰）</p>
+            </section>
+        </div>
+
+        <!-- 联系区域 -->
+        <section id="contact" class="contact">
+            <h2><i class="fa fa-handshake-o"></i> 联系我</h2>
+            <p>想认识我？可以通过这些方式找到我~</p>
+            <div class="contact-links">
+                <a href="https://github.com/" target="_blank" title="Github"><i class="fa fa-github"></i></a>
+                <a href="mailto:example@mail.com" title="邮箱"><i class="fa fa-envelope"></i></a>
+                <a href="#" title="微信"><i class="fa fa-weixin"></i></a>
+                <a href="#" title="QQ"><i class="fa fa-qq"></i></a>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2024 宗介的个人主页 | 用❤️制作</p>
+    </footer>
+
+    <!-- 简单交互脚本 -->
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
-        
-        // 设置当前按钮为活跃状态
-        this.classList.remove('bg-white', 'text-dark');
-        this.classList.add('bg-primary', 'text-white');
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
