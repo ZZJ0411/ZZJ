@@ -1,335 +1,131 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宗介的个人主页</title>
-    <!-- 引入外部样式库（简化设计） -->
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        /* 基础样式设置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        /* 导航栏样式 */
-        nav {
-            background-color: #2c3e50;
-            color: white;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #3498db;
-        }
-
-        /* 头部区域 */
-        header {
-            text-align: center;
-            padding: 5rem 2rem;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            color: white;
-        }
-
-        .avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* 主内容区域 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .sections {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .section-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .section-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .section-card h2 {
-            color: #2980b9;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .section-card h2 i {
-            font-size: 1.5rem;
-        }
-
-        .hobby-list, .food-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .hobby-item, .food-item {
-            background: #f1f5f9;
-            padding: 0.8rem;
-            border-radius: 6px;
-            text-align: center;
-            transition: background 0.3s;
-        }
-
-        .hobby-item:hover, .food-item:hover {
-            background: #e1eaf5;
-        }
-
-        .info-list li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .info-list li::before {
-            content: "•";
-            color: #3498db;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        /* 联系区域 */
-        .contact {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .contact-links a {
-            color: #3498db;
-            font-size: 1.8rem;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        .contact-links a:hover {
-            color: #2980b9;
-            transform: scale(1.1);
-        }
-
-        /* 页脚 */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            color: #7f8c8d;
-            background: #ecf0f1;
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            header {
-                padding: 3rem 1rem;
-            }
-
-            .sections {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大学低成本兴趣实践指南 | 青春校园版</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#F8BBD0',
+            secondary: '#FFE082',
+            light: '#FFFDF7',
+            dark: '#424242',
+            pinklight: '#FFEBEE',
+            yellowlight: '#FFF8E1'
+          },
+          fontFamily: {
+            sans: ['思源黑体 CN', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto { content-visibility: auto; }
+      .card { @apply bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden; }
+      .main-title { @apply font-bold text-dark tracking-wider; }
+      .price-tag { @apply bg-secondary/30 text-dark px-2.5 py-1 rounded-full text-sm font-medium; }
+      .btn { @apply bg-primary text-white rounded-xl px-6 py-2 font-medium hover:bg-primary/90 transition-colors; }
+      .section-gap { @apply py-16 md:py-20; }
+      * { border-radius: inherit; }
+    }
+    body {
+      font-family: '思源黑体 CN', 'Noto Sans SC', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: 0.5px;
+    }
+  </style>
 </head>
-<body>
-    <!-- 导航栏 -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">宗介的主页</div>
-            <div class="nav-links">
-                <a href="#intro">个人介绍</a>
-                <a href="#hobbies">兴趣爱好</a>
-                <a href="#food">饮食习惯</a>
-                <a href="#contact">联系我</a>
-            </div>
-        </div>
-    </nav>
+<body class="bg-light text-dark min-h-screen">
+  <nav class="bg-white sticky top-0 z-10 shadow-sm">
+    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-2">
+        <i class="fas fa-star text-primary text-xl"></i>
+        <span class="main-title text-xl text-primary">校园兴趣指南</span>
+      </a>
+      <div class="flex gap-6 font-medium">
+        <a href="clay.html" class="hover:text-primary transition-colors">宿舍黏土</a>
+        <a href="print.html" class="hover:text-primary transition-colors">植物拓印</a>
+        <a href="fitness.html" class="hover:text-primary transition-colors">极简健身</a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- 头部区域 -->
-    <header>
-        <!-- 这里可以替换成你的照片（建议尺寸180x180） -->
-        <img src="https://via.placeholder.com/180" alt="宗介的头像" class="avatar">
-        <h1>你好，我是宗介</h1>
-        <p>花椒大学在读 · 热爱生活的普通人</p>
-    </header>
+  <header class="bg-gradient-to-r from-primary/80 to-secondary/80 py-14 md:py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="main-title text-[clamp(1.8rem,4vw,3rem)] text-white mb-4">大学低成本兴趣实践指南</h1>
+      <p class="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-8">
+        宝子们！零门槛、低成本、不占宿舍空间的课余玩法来啦～ 50元内搞定，碎片时间就能玩，新手也能轻松上手！
+      </p>
+      <a href="#interest-list" class="btn">
+        <i class="fas fa-heart mr-2"></i>探索兴趣
+      </a>
+    </div>
+  </header>
 
-    <!-- 主内容区域 -->
-    <div class="container">
-        <div class="sections">
-            <!-- 个人介绍板块 -->
-            <section id="intro" class="section-card">
-                <h2><i class="fa fa-user"></i> 个人介绍</h2>
-                <ul class="info-list">
-                    <li><strong>姓名：</strong>宗介</li>
-                    <li><strong>学校：</strong>花椒大学</li>
-                    <li><strong>年级：</strong>2022级 大四</li>
-                    <li><strong>专业：</strong>智能制造工程</li>
-                    <li><strong>性格：</strong>开朗随和，喜欢尝试新鲜事物</li>
-                    <li><strong>座右铭：</strong>慢慢来，比较快</li>
-                </ul>
-            </section>
-
-            <!-- 兴趣爱好板块 -->
-            <section id="hobbies" class="section-card">
-                <h2><i class="fa fa-heart"></i> 兴趣爱好</h2>
-                <p>平时喜欢做这些事来丰富生活：</p>
-                <div class="hobby-list">
-                    <div class="hobby-item">
-                        <i class="fa fa-running"></i>
-                        <p>跑步</p>
-                    </div>
-                    <div class="hobby-item">
-                        <i class="fa fa-gamepad"></i>
-                        <p>游戏</p>
-                    </div>
-                    <div class="hobby-item">
-                        <i class="fa fa-book"></i>
-                        <p>阅读</p>
-                    </div>
-                    <div class="hobby-item">
-                        <i class="fa fa-film"></i>
-                        <p>看电影</p>
-                    </div>
-                    <div class="hobby-item">
-                        <i class="fa fa-music"></i>
-                        <p>听歌</p>
-                    </div>
-                    <div class="hobby-item">
-                        <i class="fa fa-code"></i>
-                        <p>编程</p>
-                    </div>
-                </div>
-                <p style="margin-top: 1rem;"><strong>跑步小记：</strong>每周会跑3-4次，最喜欢校园的夜跑，听着歌慢慢跑很解压~</p>
-                <p><strong>游戏偏好：</strong>喜欢策略类和合作类游戏，比如《崩坏星穹铁道》《英雄联盟》</p>
-            </section>
-
-            <!-- 饮食习惯板块 -->
-            <section id="food" class="section-card">
-                <h2><i class="fa fa-utensils"></i> 饮食习惯</h2>
-                <ul class="info-list">
-                    <li><strong>口味：</strong>偏爱微辣，不喜欢太咸的食物</li>
-                    <li><strong>饮食规律：</strong>三餐按时吃，早餐必吃鸡蛋和牛奶</li>
-                    <li><strong>最爱吃的菜：</strong></li>
-                </ul>
-                <div class="food-list">
-                    <div class="food-item">番茄炒蛋</div>
-                    <div class="food-item">火锅</div>
-                    <div class="food-item">烧烤</div>
-                    <div class="food-item">寿司</div>
-                    <div class="food-item">麻辣烫</div>
-                    <div class="food-item">炸鸡</div>
-                </div>
-                <p style="margin-top: 1rem;"><strong>水果偏好：</strong>草莓、蓝莓、西瓜（夏天的最爱）</p>
-                <p><strong>饮品：</strong>平时多喝水，偶尔喝奶茶（三分糖少冰）</p>
-            </section>
-        </div>
-
-        <!-- 联系区域 -->
-        <section id="contact" class="contact">
-            <h2><i class="fa fa-handshake-o"></i> 联系我</h2>
-            <p>想认识我？可以通过这些方式找到我~</p>
-            <div class="contact-links">
-                <a href="https://github.com/" target="_blank" title="Github"><i class="fa fa-github"></i></a>
-                <a href="mailto:example@mail.com" title="邮箱"><i class="fa fa-envelope"></i></a>
-                <a href="#" title="微信"><i class="fa fa-weixin"></i></a>
-                <a href="#" title="QQ"><i class="fa fa-qq"></i></a>
-            </div>
-        </section>
+  <main id="interest-list" class="container mx-auto px-4 section-gap">
+    <div class="text-center mb-12">
+      <h2 class="main-title text-[clamp(1.5rem,3vw,2.2rem)] mb-3">精选3大低成本兴趣</h2>
+      <p class="text-dark/70">✅ 工具预算≤50元 | ✅ 新手5步上手 | ✅ 宿舍/校园可实操</p>
     </div>
 
-    <!-- 页脚 -->
-    <footer>
-        <p>© 2024 宗介的个人主页 | 用❤️制作</p>
-    </footer>
+    <div class="grid md:grid-cols-3 gap-6">
+      <a href="clay.html" class="card">
+        <div class="h-48 bg-pinklight flex items-center justify-center p-6">
+          <i class="fas fa-palette text-primary text-6xl"></i>
+        </div>
+        <div class="p-6">
+          <h3 class="main-title text-xl mb-2">宿舍手作黏土</h3>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="price-tag">总预算 18-48元</span>
+            <span class="text-xs text-dark/60">新手5步完成</span>
+          </div>
+          <p class="text-dark/70 text-sm">宿舍就能做的治愈手作，摆件/挂件/笔筒全覆盖，成品可送朋友～</p>
+        </div>
+      </a>
 
-    <!-- 简单交互脚本 -->
-    <script>
-        // 平滑滚动效果
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+      <a href="print.html" class="card">
+        <div class="h-48 bg-yellowlight flex items-center justify-center p-6">
+          <i class="fas fa-leaf text-secondary text-6xl"></i>
+        </div>
+        <div class="p-6">
+          <h3 class="main-title text-xl mb-2">校园植物拓印</h3>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="price-tag">总预算 12-32元</span>
+            <span class="text-xs text-dark/60">新手5步完成</span>
+          </div>
+          <p class="text-dark/70 text-sm">校园取材零成本，拓印书签/装饰画，定格校园四季美好～</p>
+        </div>
+      </a>
+
+      <a href="fitness.html" class="card">
+        <div class="h-48 bg-pinklight/70 flex items-center justify-center p-6">
+          <i class="fas fa-dumbbell text-primary text-6xl"></i>
+        </div>
+        <div class="p-6">
+          <h3 class="main-title text-xl mb-2">无设备极简健身</h3>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="price-tag">总预算 0元</span>
+            <span class="text-xs text-dark/60">新手5步完成</span>
+          </div>
+          <p class="text-dark/70 text-sm">纯自重训练，宿舍/操场随时练，改善体态，拒绝久坐驼背～</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-primary/20 py-6">
+    <div class="container mx-auto px-4 text-center text-dark/60 text-sm">
+      <p>✨ 大学低成本兴趣实践指南 | 青春校园版 ✨</p>
+      <p class="mt-2">© 2025 校园兴趣分享站 | 50元玩转课余生活</p>
+    </div>
+  </footer>
 </body>
 </html>
