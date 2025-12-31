@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>无设备极简健身 | 大学低成本兴趣实践指南</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#F8BBD0',
+            secondary: '#FFE082',
+            light: '#FFFDF7',
+            dark: '#424242',
+            pinklight: '#FFEBEE',
+            yellowlight: '#FFF8E1'
+          },
+          fontFamily: {
+            sans: ['思源黑体 CN', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto { content-visibility: auto; }
+      .detail-card { @apply bg-white rounded-2xl shadow-sm p-6 md:p-8 mb-8; }
+      .title-h2 { @apply font-bold text-[clamp(1.4rem,2.5vw,1.8rem)] text-primary mb-5 flex items-center gap-2; }
+      .title-h3 { @apply font-bold text-lg text-dark mb-4 border-b border-primary/20 pb-2; }
+      .price-range { @apply text-secondary font-medium; }
+      .tip-good { @apply text-green-500; }
+      .tip-bad { @apply text-red-400; }
+    }
+  </style>
+  <style>
+    body {
+      font-family: '思源黑体 CN', 'Noto Sans SC', sans-serif;
+      background-color: #FFFDF7;
+      color: #424242;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+</head>
+<body>
+  <nav class="bg-white sticky top-0 z-10 shadow-sm">
+    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-2">
+        <i class="fas fa-arrow-left text-primary"></i>
+        <span class="font-bold text-xl text-primary">返回首页</span>
+      </a>
+      <div class="flex gap-4 font-medium">
+        <a href="clay.html" class="hover:text-primary transition-colors">宿舍黏土</a>
+        <a href="print.html" class="hover:text-primary transition-colors">植物拓印</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-4 py-10">
+    <div class="detail-card text-center">
+      <h1 class="font-bold text-[clamp(1.6rem,3vw,2.2rem)] text-primary mb-3">无设备极简健身 ✨ 新手入门全指南</h1>
+      <div class="inline-block bg-yellowlight px-5 py-2 rounded-full mb-4">
+        <span class="font-medium">💰 工具总预算：</span>
+        <span class="price-range font-bold">0元</span>
+        <span class="text-xs text-dark/60 ml-2">（纯自重，宿舍/操场就能练）</span>
+      </div>
+      <p class="text-dark/70 max-w-2xl mx-auto">不用花一分钱，不用买健身器材，甚至不用出宿舍！5步完成基础训练，改善久坐驼背，提升身体素质，碎片时间就能练～</p>
+    </div>
+
+    <section class="detail-card">
+      <h2 class="title-h2"><i class="fas fa-tools"></i>工具清单（0元！全靠现有物品）</h2>
+      <div class="bg-yellowlight/50 rounded-xl p-4 mb-6 text-center">
+        <p class="font-medium text-lg">✅ 纯无设备训练！以下都是宿舍/校园现成的，不用额外买任何东西～</p>
+      </div>
+      <ul class="space-y-3 text-dark/80 max-w-2xl mx-auto">
+        <li>✅ 自身重量：核心“器材”，不用花一分钱</li>
+        <li>✅ 宿舍床/书桌：做支撑用（比如俯卧撑、臀桥时）</li>
+        <li>✅ 校园操场跑道：想加有氧训练时用（没有也能在宿舍做开合跳）</li>
+        <li>✅ 毛巾：擦汗用，宿舍常备（可选）</li>
+      </ul>
+    </section>
+
+    <section class="detail-card">
+      <h2 class="title-h2"><i class="fas fa-list-ol"></i>新手5步教程（每步简单说明）</h2>
+      <div class="bg-white rounded-xl border border-primary/20 overflow-hidden">
+        <ol class="divide-y divide-primary/10">
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step1：热身（5分钟）</h3>
+              <p class="text-dark/70">开合跳30次 + 高抬腿40次 + 关节环绕（手腕、脚踝、肩膀）</p>
+            </div>
+          </li>
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step2：核心训练（8分钟）</h3>
+              <p class="text-dark/70">平板支撑60秒 + 臀桥20个（靠宿舍床沿做）</p>
+            </div>
+          </li>
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step3：下肢训练（7分钟）</h3>
+              <p class="text-dark/70">徒手深蹲30个（膝盖别超过脚尖）</p>
+            </div>
+          </li>
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">4</span>
+            <div>
+              <h3 class

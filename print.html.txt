@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园植物拓印 | 大学低成本兴趣实践指南</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#F8BBD0',
+            secondary: '#FFE082',
+            light: '#FFFDF7',
+            dark: '#424242',
+            pinklight: '#FFEBEE',
+            yellowlight: '#FFF8E1'
+          },
+          fontFamily: {
+            sans: ['思源黑体 CN', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto { content-visibility: auto; }
+      .detail-card { @apply bg-white rounded-2xl shadow-sm p-6 md:p-8 mb-8; }
+      .title-h2 { @apply font-bold text-[clamp(1.4rem,2.5vw,1.8rem)] text-primary mb-5 flex items-center gap-2; }
+      .title-h3 { @apply font-bold text-lg text-dark mb-4 border-b border-primary/20 pb-2; }
+      .price-range { @apply text-secondary font-medium; }
+      .tip-good { @apply text-green-500; }
+      .tip-bad { @apply text-red-400; }
+    }
+  </style>
+  <style>
+    body {
+      font-family: '思源黑体 CN', 'Noto Sans SC', sans-serif;
+      background-color: #FFFDF7;
+      color: #424242;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+</head>
+<body>
+  <nav class="bg-white sticky top-0 z-10 shadow-sm">
+    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-2">
+        <i class="fas fa-arrow-left text-primary"></i>
+        <span class="font-bold text-xl text-primary">返回首页</span>
+      </a>
+      <div class="flex gap-4 font-medium">
+        <a href="clay.html" class="hover:text-primary transition-colors">宿舍黏土</a>
+        <a href="fitness.html" class="hover:text-primary transition-colors">极简健身</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-4 py-10">
+    <div class="detail-card text-center">
+      <h1 class="font-bold text-[clamp(1.6rem,3vw,2.2rem)] text-primary mb-3">校园植物拓印 ✨ 新手入门全指南</h1>
+      <div class="inline-block bg-yellowlight px-5 py-2 rounded-full mb-4">
+        <span class="font-medium">💰 工具总预算：</span>
+        <span class="price-range font-bold">12-32元</span>
+        <span class="text-xs text-dark/60 ml-2">（校园取材零成本）</span>
+      </div>
+      <p class="text-dark/70 max-w-2xl mx-auto">在校园里捡片叶子就能玩！不用复杂工具，5步拓出专属装饰画、书签，把校园的春天留在纸上～ 新手零门槛，超治愈！</p>
+    </div>
+
+    <section class="detail-card">
+      <h2 class="title-h2"><i class="fas fa-tools"></i>工具清单（价格+购买渠道推荐）</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <ul class="space-y-3 text-dark/80">
+          <li>✅ 宣纸/素描纸：8-12元/100张 | 渠道：拼多多（搜“宣纸 学生款”，性价比高）；学校文具店（应急买也方便）</li>
+          <li>✅ 水性颜料：15-20元/4色套装 | 渠道：拼多多/淘宝（选可水洗款，不小心弄衣服上好清理）</li>
+          <li>✅ 海绵拓印棒：2-3元/2个 | 渠道：拼多多，和颜料一起买更划算</li>
+          <li>✅ 透明胶带：2元/卷 | 渠道：学校文具店、拼多多，宿舍常备款可复用</li>
+          <li>✅ 剪刀：4-6元/把 | 渠道：学校文具店；宿舍已有就不用买</li>
+        </ul>
+        <div class="bg-yellowlight/50 rounded-xl p-4 flex items-center justify-center">
+          <p class="text-center font-medium">💡 新手选购建议：直接买“拓印套装”（纸+颜料+拓印棒），25元左右全搞定，不用单独凑配件～</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2 class="title-h2"><i class="fas fa-list-ol"></i>新手5步教程（每步简单说明）</h2>
+      <div class="bg-white rounded-xl border border-primary/20 overflow-hidden">
+        <ol class="divide-y divide-primary/10">
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step1：捡叶子</h3>
+              <p class="text-dark/70">校园里选叶脉清晰的新鲜叶子（香樟、桂花、枫叶都可）</p>
+            </div>
+          </li>
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step2：固定叶子</h3>
+              <p class="text-dark/70">叶子擦干平铺在纸上，用透明胶带固定边缘（防止拓印移位）</p>
+            </div>
+          </li>
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step3：涂颜料</h3>
+              <p class="text-dark/70">海绵棒蘸少量颜料，轻轻拍打叶子表面（薄涂，别堆太多）</p>
+            </div>
+          </li>
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">4</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step4：撕叶子</h3>
+              <p class="text-dark/70">颜料半干时，慢慢撕下叶子，就能看到清晰的拓印图案</p>
+            </div>
+          </li>
+          <li class="p-5 flex items-start gap-4">
+            <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">5</span>
+            <div>
+              <h3 class="title-h3 m-0 pb-0 border-0">Step5：成品定型</h3>
+              <p class="text-dark/70">把作品放通风处晾干，可做书签或装裱装饰</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2 class="title-h2"><i class="fas fa-exclamation-circle"></i>新手避坑指南</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="title-h3">❌ 常见踩坑点</h3>
+          <ul class="space-y-2 text-dark/70">
+            <li><i class="tip-bad fas fa-times-circle mr-2"></i>选叶不当：选了带绒毛、汁液多的叶子（如夹竹桃），又晕色又有毒</li>
+            <li><i class="tip-bad fas fa-times-circle mr-2"></i>颜料选错：用了油性颜料，渗透纸张严重，图案模糊</li>
+            <li><i class="tip-bad fas fa-times-circle mr-2"></i>力度太大：拍打时太用力，叶子破了，拓印轮廓乱掉</li>
+            <li><i class="tip-bad fas fa-times-circle mr-2"></i>撕叶太早：颜料没半干就撕，图案会糊掉</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="title-h3">✅ 实用小技巧</h3>
+          <ul class="space-y-2 text-dark/70">
+            <li><i class="tip-good fas fa-check-circle mr-2"></i>拓印前给叶子涂一层薄蜡，叶脉更清晰</li>
+            <li><i class="tip-good fas fa-check-circle mr-2"></i>颜料少蘸多次，避免渗透纸张</li>
+            <li><i class="tip-good fas fa-check-circle mr-2"></i>想做渐变效果，可在海绵棒上混两种浅色颜料</li>
+            <li><i class="tip-good fas fa-check-circle mr-2"></i>成品用透明胶带封一层，防水防皱</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2 class="title-h2"><i class="fas fa-images"></i>真实成果展示</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img src="https://picsum.photos/id/137/400/400" alt="枫叶拓印书签" class="rounded-xl w-full h-40 object-cover">
+        <img src="https://picsum.photos/id/142/400/400" alt="桂花叶拓印明信片" class="rounded-xl w-full h-40 object-cover">
+        <img src="https://picsum.photos/id/152/400/400" alt="组合拓印装饰画" class="rounded-xl w-full h-40 object-cover">
+        <img src="https://picsum.photos/id/167/400/400" alt="叶脉拓印笔记本封面" class="rounded-xl w-full h-40 object-cover">
+      </div>
+      <div class="bg-yellowlight/60 rounded-xl p-4 mt-6 text-center">
+        <p class="font-medium"><i class="fas fa-quote-left text-secondary mr-2"></i>所有作品的叶子都来自校园，工具成本最高32元，新手轻松复刻～ <i class="fas fa-quote-right text-secondary ml-2"></i></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t border-primary/20 py-6 mt-8">
+    <div class="container mx-auto px-4 text-center text-dark/60 text-sm">
+      <p>校园植物拓印 | 大学低成本兴趣实践指南</p>
+      <p class="mt-2">✨ 青春校园版 · 新手零门槛 ✨</p>
+    </div>
+  </footer>
+</body>
+</html>
